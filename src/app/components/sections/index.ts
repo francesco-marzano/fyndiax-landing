@@ -1,0 +1,11 @@
+export { Navbar } from './Navbar';
+export { HeroSection } from './HeroSection';
+export { WhoWeAreSection } from './WhoWeAreSection';
+export { WhyNowSection } from './WhyNowSection';
+export { ModelSection } from './ModelSection';
+export { BuildersSection } from './BuildersSection';
+export { VenturesSection } from './VenturesSection';
+export { PartnersSection } from './PartnersSection';
+export { TeamSection } from './TeamSection';
+export { ContactSection } from './ContactSection';
+export { Footer } from './Footer';

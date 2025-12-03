@@ -11,18 +11,26 @@ const team = [
   {
     name: 'Giorgio Barbaglia',
     role: 'Co-Founder & Partner',
-    bio: 'Entrepreneur and innovator with a strong track record in building market-leading companies. Giorgio leads the industrial and strategic vision of Fyndiax and its binational growth.',
+    bio: 'Entrepreneur and innovator with solid experience in building and growing tech and industrial companies. Founder of SBS S.p.a. and co-owner of Nuova Fina Group S.p.a.',
     image: '/images/Giorgio-Barbaglia.jpeg',
     linkedin: '#',
-    tag: 'Strategic Vision',
+    tag: 'Industrial Vision',
   },
   {
     name: "Riccardo D'Iglio",
-    role: 'Venture Partner & Innovation Architect',
-    bio: 'Tech business advisor and innovation designer focused on AI, venture building and cross-border ecosystems. Riccardo contributes to architectural design, scientific partnerships and venture development.',
-    image: '/images/founder-3.jpeg',
+    role: 'Co-Founder & Innovation Manager',
+    bio: 'Tech business advisor and innovation designer, focused on AI and exponential technologies. Founder of LiftyUp. Experience in corporate, venture building and startup mentorship.',
+    image: '/images/Riccardo-D_Iglio.jpeg',
     linkedin: '#',
-    tag: 'Innovation Design',
+    tag: 'Tech & AI',
+  },
+  {
+    name: 'Luca Bertolino',
+    role: 'Scientific Advisor',
+    bio: 'Agronomist with over 20 years of experience as an entrepreneur and researcher. Recognized expert in sustainable agronomy and precision food.',
+    image: '/images/Luca Bertolino.jpeg',
+    linkedin: '#',
+    tag: 'Scientific Advisory',
   },
 ];
 
@@ -337,11 +345,19 @@ export function TeamSection() {
           </FadeInUp>
         </div>
 
-        {/* Founders Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-16 sm:mb-20 md:mb-24">
-          {team.map((member, index) => (
+        {/* Founders Grid - Layout 2+1 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-6 sm:mb-8 lg:mb-12">
+          {/* Prime due card */}
+          {team.slice(0, 2).map((member, index) => (
             <FounderCard key={member.name} member={member} index={index} />
           ))}
+        </div>
+        
+        {/* Terza card centrata */}
+        <div className="flex justify-center mb-16 sm:mb-20 md:mb-24">
+          <div className="w-full md:w-1/2 lg:w-[45%]">
+            <FounderCard member={team[2]} index={2} />
+          </div>
         </div>
 
         {/* Locations Section - Global Presence */}

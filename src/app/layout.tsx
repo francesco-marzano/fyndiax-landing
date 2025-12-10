@@ -39,6 +39,11 @@ export const metadata: Metadata = {
     "thematic innovation",
   ],
   authors: [{ name: "Fyndiax" }],
+  icons: {
+    icon: { url: "/favicon.svg", type: "image/svg+xml" },
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "Fyndiax | Vertical Venture Architect",
     description:

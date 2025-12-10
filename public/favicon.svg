@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Gradiente principale viola-cyan -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#00D4FF"/>
+    </linearGradient>
+    
+    <!-- Gradiente per il glow verde -->
+    <linearGradient id="greenAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#14F195"/>
+      <stop offset="100%" stop-color="#5EEAD4"/>
+    </linearGradient>
+    
+    <!-- Gradiente sfondo scuro -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0C0C12"/>
+      <stop offset="100%" stop-color="#050508"/>
+    </linearGradient>
+    
+    <!-- Filtro glow viola -->
+    <filter id="glowPurple" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Filtro glow verde -->
+    <filter id="glowGreen" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Filtro glow esterno -->
+    <filter id="outerGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="out"/>
+    </filter>
+    
+    <!-- Clip path esagonale/sfaccettato -->
+    <clipPath id="hexClip">
+      <polygon points="
+        40,0 
+        472,0 
+        512,40 
+        512,472 
+        472,512 
+        40,512 
+        0,472 
+        0,40
+      "/>
+    </clipPath>
+  </defs>
+  
+  <!-- Sfondo sfaccettato -->
+  <polygon 
+    points="40,0 472,0 512,40 512,472 472,512 40,512 0,472 0,40"
+    fill="url(#bgGradient)"
+  />
+  
+  <!-- Bordo luminoso -->
+  <polygon 
+    points="40,0 472,0 512,40 512,472 472,512 40,512 0,472 0,40"
+    fill="none"
+    stroke="url(#primaryGradient)"
+    stroke-width="3"
+    opacity="0.6"
+  />
+  
+  <!-- Lettera F stilizzata -->
+  <g filter="url(#glowPurple)">
+    <!-- Barra superiore della F -->
+    <rect 
+      x="100" 
+      y="80" 
+      width="312" 
+      height="70" 
+      rx="8"
+      fill="url(#primaryGradient)"
+    />
+    
+    <!-- Stelo verticale della F -->
+    <rect 
+      x="100" 
+      y="80" 
+      width="70" 
+      height="352" 
+      rx="8"
+      fill="url(#primaryGradient)"
+    />
+    
+    <!-- Barra centrale della F con accento verde -->
+    <g filter="url(#glowGreen)">
+      <rect 
+        x="100" 
+        y="220" 
+        width="220" 
+        height="60" 
+        rx="6"
+        fill="url(#greenAccent)"
+      />
+    </g>
+  </g>
+  
+  <!-- Nodo centrale luminoso (system architect) -->
+  <circle 
+    cx="170" 
+    cy="250" 
+    r="20" 
+    fill="#FFFFFF"
+    opacity="0.9"
+    filter="url(#glowGreen)"
+  />
+  
+  <!-- Dettaglio angolo superiore destro -->
+  <polygon 
+    points="440,32 480,32 480,72"
+    fill="url(#primaryGradient)"
+    opacity="0.4"
+  />
+  
+  <!-- Dettaglio angolo inferiore sinistro -->
+  <polygon 
+    points="32,440 32,480 72,480"
+    fill="url(#greenAccent)"
+    opacity="0.4"
+  />
+</svg>
+

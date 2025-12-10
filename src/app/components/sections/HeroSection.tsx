@@ -373,7 +373,12 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <a href="#contact" className="ai-button-wrapper group">
+              <button 
+                onClick={() => {
+                  window.lenis?.scrollTo('#contact');
+                }}
+                className="ai-button-wrapper group"
+              >
                 <span className="ai-button-inner">
                   <motion.span
                     animate={{ rotate: [0, 15, -15, 0] }}
@@ -383,7 +388,7 @@ export function HeroSection() {
                   </motion.span>
                   Talk to us
                 </span>
-              </a>
+              </button>
               
               {/* Micro-tagline */}
               <motion.p

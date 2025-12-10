@@ -33,8 +33,7 @@ export function Navbar() {
 
   const handleNavClick = useCallback((href: string) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    window.lenis?.scrollTo(href);
   }, []);
 
   return (

@@ -7,6 +7,13 @@ interface SmoothScrollProps {
   children: ReactNode;
 }
 
+// Estendi Window per includere lenis
+declare global {
+  interface Window {
+    lenis?: Lenis;
+  }
+}
+
 export function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     const lenis = new Lenis({
@@ -15,6 +22,9 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       orientation: 'vertical',
       smoothWheel: true,
     });
+
+    // Esponi Lenis globalmente per permettere scrollTo da altri componenti
+    window.lenis = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -25,6 +35,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     return () => {
       lenis.destroy();
+      window.lenis = undefined;
     };
   }, []);
 

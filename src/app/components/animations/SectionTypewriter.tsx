@@ -35,15 +35,14 @@ export function SectionTypewriter({
             <motion.span
               key={wordIndex}
               className={`inline-block mr-[0.3em] ${highlighted ? 'gradient-text' : ''}`}
-              initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { 
                 opacity: 1, 
                 y: 0, 
-                filter: 'blur(0px)',
               } : {}}
               transition={{ 
-                duration: 0.6,
-                delay: wordIndex * 0.08,
+                duration: 0.4,
+                delay: wordIndex * 0.05,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >

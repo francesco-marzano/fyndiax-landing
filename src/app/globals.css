@@ -355,7 +355,7 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 20%, transparent 70%);
   }
 
-  /* Flowing light beam effect */
+  /* Flowing light beam effect - slower for better performance */
   .light-beam {
     position: absolute;
     top: 0;
@@ -367,7 +367,7 @@
       rgba(255, 255, 255, 0.02),
       transparent
     );
-    animation: beam-sweep 12s ease-in-out infinite;
+    animation: beam-sweep 25s ease-in-out infinite;
     pointer-events: none;
   }
 
@@ -408,7 +408,7 @@
     pointer-events: none;
   }
 
-  /* Animated diagonal lines - elegant movement */
+  /* Animated diagonal lines - slower for better performance */
   .diagonal-lines {
     position: absolute;
     inset: 0;
@@ -419,7 +419,7 @@
       rgba(255, 255, 255, 0.008) 60px,
       rgba(255, 255, 255, 0.008) 61px
     );
-    animation: diagonal-drift 30s linear infinite;
+    animation: diagonal-drift 60s linear infinite;
     pointer-events: none;
   }
 
@@ -428,7 +428,7 @@
     100% { background-position: 200px 200px; }
   }
 
-  /* Horizontal scan line */
+  /* Horizontal scan line - slower for better performance */
   .scan-line {
     position: absolute;
     left: 0;
@@ -441,14 +441,14 @@
       rgba(139, 92, 246, 0.15) 80%,
       transparent 100%
     );
-    animation: scan-move 8s ease-in-out infinite;
+    animation: scan-move 20s ease-in-out infinite;
     pointer-events: none;
   }
 
   @keyframes scan-move {
     0%, 100% { top: 10%; opacity: 0; }
-    10% { opacity: 0.6; }
-    90% { opacity: 0.6; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
     100% { top: 90%; opacity: 0; }
   }
 
@@ -653,7 +653,7 @@
     #A855F7
   );
   background-size: 300% 100%;
-  animation: shimmer-border 4s ease infinite;
+  animation: shimmer-border 8s ease infinite;
 }
 
 .ai-button-wrapper::before {
@@ -663,8 +663,8 @@
   border-radius: 24px;
   background: inherit;
   filter: blur(20px);
-  opacity: 0.7;
-  animation: border-glow-pulse 2s ease-in-out infinite;
+  opacity: 0.5;
+  animation: border-glow-pulse 4s ease-in-out infinite;
   z-index: -1;
 }
 
@@ -1078,7 +1078,7 @@
 }
 
 .hud-card-active .hud-scanline {
-  animation: scanline-move 8s linear infinite;
+  animation: scanline-move 16s linear infinite;
 }
 
 @keyframes scanline-move {
@@ -1110,8 +1110,8 @@
 }
 
 .hud-card-active .hud-data-stream {
-  opacity: 0.6;
-  animation: data-stream 2s ease-in-out infinite;
+  opacity: 0.5;
+  animation: data-stream 4s ease-in-out infinite;
 }
 
 @keyframes data-stream {
@@ -1282,7 +1282,7 @@
   will-change: transform, opacity;
 }
 
-/* Subtle Scan Lines Overlay */
+/* Subtle Scan Lines Overlay - slower for better performance */
 .parallax-scanlines {
   position: absolute;
   inset: 0;
@@ -1290,12 +1290,12 @@
     0deg,
     transparent 0px,
     transparent 2px,
-    rgba(255, 255, 255, 0.008) 2px,
-    rgba(255, 255, 255, 0.008) 4px
+    rgba(255, 255, 255, 0.006) 2px,
+    rgba(255, 255, 255, 0.006) 4px
   );
   pointer-events: none;
-  opacity: 0.6;
-  animation: scanlines-drift 30s linear infinite;
+  opacity: 0.5;
+  animation: scanlines-drift 60s linear infinite;
 }
 
 @keyframes scanlines-drift {

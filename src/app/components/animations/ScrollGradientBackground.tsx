@@ -4,31 +4,25 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
 
 /**
- * ScrollGradientBackground
+ * ScrollGradientBackground - Optimized Version
  * 
  * Creates a continuous animated background with parallax orbs that change color
  * based on scroll position, providing visual continuity between sections.
  * 
- * Color scheme per section:
- * - Hero → WhoWeAre: Primary Purple (#8B5CF6) + Cyan (#00D4FF)
- * - MissionStatement → Model: Synxay (#A855F7) + Green (#14F195)
- * - WhyNow → Ventures: Purple/Synxay blend
- * - Team → Partners: Balanced mix
- * - Builders: Split purple/green
- * - Contact → Footer: Fade to void
+ * Optimizations:
+ * - Reduced from 5 orbs to 3 orbs
+ * - Removed FloatingParticles (20 animated elements)
+ * - Simplified spring config for less CPU usage
+ * - Removed scale breathing effect
  */
 
-// Smooth spring config for fluid animations
-const springConfig = { stiffness: 50, damping: 30, mass: 1 };
+// Lighter spring config for better performance
+const springConfig = { stiffness: 30, damping: 25, mass: 1 };
 
 // Color keyframes for scroll interpolation
 const colorKeyframes = {
-  // Primary orb colors (dominant)
   primary: ['#8B5CF6', '#A855F7', '#8B5CF6', '#A855F7', '#14F195', '#8B5CF6', '#050508'],
-  // Secondary orb colors (accent)
   secondary: ['#00D4FF', '#14F195', '#A855F7', '#00D4FF', '#A855F7', '#14F195', '#050508'],
-  // Tertiary orb colors (subtle)
-  tertiary: ['#14F195', '#8B5CF6', '#00D4FF', '#14F195', '#8B5CF6', '#00D4FF', '#030305'],
 };
 
 // Scroll progress breakpoints (0-1 range)
@@ -55,7 +49,7 @@ function ParallaxOrb({
   parallaxFactor,
   scrollYProgress,
 }: ParallaxOrbProps) {
-  // Calculate parallax offset based on scroll
+  // Calculate parallax offset based on scroll - simplified, no horizontal drift
   const yOffset = useTransform(
     scrollYProgress,
     [0, 1],
@@ -65,33 +59,15 @@ function ParallaxOrb({
   // Smooth the movement
   const smoothY = useSpring(yOffset, springConfig);
 
-  // Subtle horizontal drift based on scroll
-  const xDrift = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    ['0%', `${parallaxFactor * 10}%`, '0%']
-  );
-  const smoothX = useSpring(xDrift, springConfig);
-
-  // Scale variation for breathing effect
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.5, 0.75, 1],
-    [1, 1.1, 0.95, 1.05, 1]
-  );
-  const smoothScale = useSpring(scale, { stiffness: 30, damping: 20 });
-
   return (
     <motion.div
-      className="parallax-orb"
+      className="parallax-orb will-change-transform"
       style={{
         width: size,
         height: size,
         left: initialX,
         top: initialY,
         y: smoothY,
-        x: smoothX,
-        scale: smoothScale,
         background: useTransform(color, (c) => 
           `radial-gradient(circle, ${c}${Math.round(opacity * 255).toString(16).padStart(2, '0')} 0%, transparent 70%)`
         ),
@@ -101,62 +77,7 @@ function ParallaxOrb({
   );
 }
 
-// Floating particle system for additional depth
-function FloatingParticles({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  const particles = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    x: `${(i * 17 + 5) % 100}%`,
-    y: `${(i * 23 + 10) % 100}%`,
-    size: 2 + (i % 3),
-    delay: i * 0.1,
-    parallax: 0.2 + (i % 5) * 0.1,
-  }));
-
-  return (
-    <div className="parallax-particles">
-      {particles.map((particle) => {
-        const particleY = useTransform(
-          scrollYProgress,
-          [0, 1],
-          ['0vh', `${-50 * particle.parallax}vh`]
-        );
-
-        return (
-          <motion.div
-            key={particle.id}
-            className="parallax-particle"
-            style={{
-              left: particle.x,
-              top: particle.y,
-              width: particle.size,
-              height: particle.size,
-              y: particleY,
-            }}
-            animate={{
-              opacity: [0.2, 0.5, 0.2],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 3 + particle.delay,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: particle.delay,
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
-// Subtle scan lines for cohesive futuristic feel
-function ScanLines() {
-  return (
-    <div className="parallax-scanlines" />
-  );
-}
-
-// Gradient mesh that provides base color continuity
+// Gradient mesh that provides base color continuity - simplified
 function GradientMesh({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const meshOpacity = useTransform(
     scrollYProgress,
@@ -164,18 +85,11 @@ function GradientMesh({ scrollYProgress }: { scrollYProgress: MotionValue<number
     [0.3, 0.4, 0.4, 0.2]
   );
 
-  const meshRotation = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 15]
-  );
-
   return (
     <motion.div
       className="parallax-mesh"
       style={{
         opacity: meshOpacity,
-        rotate: meshRotation,
       }}
     />
   );
@@ -204,12 +118,6 @@ export function ScrollGradientBackground() {
     colorKeyframes.secondary
   );
 
-  const tertiaryColor = useTransform(
-    smoothProgress,
-    scrollBreakpoints,
-    colorKeyframes.tertiary
-  );
-
   // Overall background opacity - fades at very end
   const bgOpacity = useTransform(
     scrollYProgress,
@@ -232,7 +140,7 @@ export function ScrollGradientBackground() {
         color={primaryColor}
         size={800}
         blur={100}
-        opacity={0.15}
+        opacity={0.12}
         initialX="20%"
         initialY="10%"
         parallaxFactor={0.3}
@@ -244,56 +152,29 @@ export function ScrollGradientBackground() {
         color={secondaryColor}
         size={500}
         blur={80}
-        opacity={0.12}
+        opacity={0.1}
         initialX="70%"
-        initialY="30%"
+        initialY="40%"
         parallaxFactor={0.5}
         scrollYProgress={smoothProgress}
       />
 
-      {/* Layer 3: Smaller faster orb (foreground) */}
-      <ParallaxOrb
-        color={tertiaryColor}
-        size={350}
-        blur={60}
-        opacity={0.1}
-        initialX="40%"
-        initialY="60%"
-        parallaxFactor={0.7}
-        scrollYProgress={smoothProgress}
-      />
-
-      {/* Additional accent orbs for depth */}
-      <ParallaxOrb
-        color={secondaryColor}
-        size={250}
-        blur={50}
-        opacity={0.08}
-        initialX="85%"
-        initialY="70%"
-        parallaxFactor={0.4}
-        scrollYProgress={smoothProgress}
-      />
-
+      {/* Layer 3: Smaller orb (foreground) */}
       <ParallaxOrb
         color={primaryColor}
-        size={300}
-        blur={70}
-        opacity={0.1}
-        initialX="10%"
-        initialY="80%"
+        size={350}
+        blur={60}
+        opacity={0.08}
+        initialX="40%"
+        initialY="70%"
         parallaxFactor={0.6}
         scrollYProgress={smoothProgress}
       />
 
-      {/* Floating particles */}
-      <FloatingParticles scrollYProgress={smoothProgress} />
-
-      {/* Subtle scan lines overlay */}
-      <ScanLines />
+      {/* Subtle scan lines overlay - CSS only, no JS animation */}
+      <div className="parallax-scanlines" />
     </motion.div>
   );
 }
 
 export default ScrollGradientBackground;
-

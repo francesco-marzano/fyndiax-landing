@@ -30,8 +30,8 @@ function AITypewriter({
       if (currentIndex < text.length) {
         const char = text[currentIndex];
         
-        // Random glitch effect before some characters
-        if (Math.random() > 0.7 && char !== ' ') {
+        // Random glitch effect before some characters (occasional)
+        if (Math.random() > 0.88 && char !== ' ') {
           // Show glitch character first
           setGlitchChar(currentIndex);
           setDisplayText(text.slice(0, currentIndex) + glitchChars[Math.floor(Math.random() * glitchChars.length)]);
@@ -42,23 +42,23 @@ function AITypewriter({
             setDisplayText(text.slice(0, currentIndex + 1));
             currentIndex++;
             
-            // Variable typing speed for realism
-            const baseDelay = 50;
-            const variation = Math.random() * 80;
-            const pauseAfterSpace = char === ' ' ? 30 : 0;
-            const pauseAfterPunctuation = '.!?,'.includes(char) ? 200 : 0;
+            // Natural typing speed with variation
+            const baseDelay = 40;
+            const variation = Math.random() * 45;
+            const pauseAfterSpace = char === ' ' ? 20 : 0;
+            const pauseAfterPunctuation = '.!?,'.includes(char) ? 140 : 0;
             
             timeoutId = setTimeout(typeNextChar, baseDelay + variation + pauseAfterSpace + pauseAfterPunctuation);
-          }, 60);
+          }, 50);
         } else {
           setDisplayText(text.slice(0, currentIndex + 1));
           currentIndex++;
           
-          // Variable typing speed
-          const baseDelay = 45;
-          const variation = Math.random() * 60;
-          const pauseAfterSpace = char === ' ' ? 20 : 0;
-          const pauseAfterPunctuation = '.!?,'.includes(char) ? 180 : 0;
+          // Natural typing speed - feels human
+          const baseDelay = 35;
+          const variation = Math.random() * 40;
+          const pauseAfterSpace = char === ' ' ? 15 : 0;
+          const pauseAfterPunctuation = '.!?,'.includes(char) ? 120 : 0;
           
           timeoutId = setTimeout(typeNextChar, baseDelay + variation + pauseAfterSpace + pauseAfterPunctuation);
         }
@@ -68,8 +68,8 @@ function AITypewriter({
       }
     };
 
-    // Start typing after initial delay
-    timeoutId = setTimeout(typeNextChar, 800);
+    // Start typing after brief pause (natural feel)
+    timeoutId = setTimeout(typeNextChar, 400);
 
     return () => clearTimeout(timeoutId);
   }, [text, onComplete]);
@@ -89,21 +89,18 @@ function AITypewriter({
             <motion.span
               key={i}
               className={`inline-block ${isHighlighted && !isGlitching ? 'gradient-text' : ''}`}
-              initial={{ opacity: 0, y: 10, filter: 'blur(8px)' }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ 
                 opacity: 1, 
-                y: 0, 
-                filter: 'blur(0px)',
-                textShadow: isGlitching 
-                  ? '0 0 25px rgba(139, 92, 246, 0.9)' 
-                  : isHighlighted
-                  ? '0 0 35px rgba(0, 212, 255, 0.5)'
-                  : '0 0 20px rgba(139, 92, 246, 0.2)',
+                y: 0,
               }}
-              transition={{ duration: 0.15, ease: 'easeOut' }}
+              transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
               style={{
                 color: isGlitching 
                   ? 'var(--accent-primary)' 
+                  : undefined,
+                textShadow: isHighlighted
+                  ? '0 0 20px rgba(0, 212, 255, 0.4)'
                   : undefined,
               }}
             >
@@ -128,16 +125,16 @@ function AITypewriter({
   );
 }
 
-// Floating particles that create atmosphere
+// Floating particles that create atmosphere - optimized
 function ParticleField({ isActive }: { isActive: boolean }) {
-  const particles = Array.from({ length: 30 }, (_, i) => ({
+  // Reduced from 30 to 12 particles for better performance
+  const particles = Array.from({ length: 12 }, (_, i) => ({
     id: i,
     initialX: Math.random() * 100,
     initialY: Math.random() * 100,
     size: Math.random() * 3 + 1,
-    duration: Math.random() * 3 + 2,
+    duration: Math.random() * 4 + 3, // Slower, smoother animation
     delay: Math.random() * 2,
-    // Alternate between primary purple and secondary cyan
     color: i % 3 === 0 ? '0, 212, 255' : '139, 92, 246',
   }));
 
@@ -146,20 +143,18 @@ function ParticleField({ isActive }: { isActive: boolean }) {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute rounded-full"
+          className="absolute rounded-full will-change-transform"
           style={{
             left: `${particle.initialX}%`,
             top: `${particle.initialY}%`,
             width: particle.size,
             height: particle.size,
-            background: `radial-gradient(circle, rgba(${particle.color}, ${isActive ? 0.9 : 0.4}) 0%, transparent 70%)`,
-            boxShadow: `0 0 ${particle.size * 4}px rgba(${particle.color}, ${isActive ? 0.6 : 0.3})`,
+            background: `radial-gradient(circle, rgba(${particle.color}, ${isActive ? 0.7 : 0.3}) 0%, transparent 70%)`,
           }}
           animate={{
-            x: [0, (Math.random() - 0.5) * 100, 0],
-            y: [0, (Math.random() - 0.5) * 80, 0],
-            scale: isActive ? [1, 1.5, 1] : [0.5, 1, 0.5],
-            opacity: isActive ? [0.4, 0.9, 0.4] : [0.2, 0.4, 0.2],
+            x: [0, (Math.random() - 0.5) * 60, 0],
+            y: [0, (Math.random() - 0.5) * 50, 0],
+            opacity: isActive ? [0.3, 0.7, 0.3] : [0.15, 0.3, 0.15],
           }}
           transition={{
             duration: particle.duration,
@@ -173,7 +168,7 @@ function ParticleField({ isActive }: { isActive: boolean }) {
   );
 }
 
-// AI Response animation for subtitle
+// AI Response animation for subtitle - smooth and natural
 function AIResponse({ 
   show, 
   children 
@@ -185,9 +180,9 @@ function AIResponse({
     <AnimatePresence>
       {show && (
         <motion.div
-          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {children}
         </motion.div>
@@ -196,11 +191,11 @@ function AIResponse({
   );
 }
 
-// Elegant ambient background - minimal and clean
+// Elegant ambient background - simplified for performance
 function AmbientBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Subtle central gradient */}
+      {/* Subtle central gradient - static, no animation */}
       <div
         className="absolute inset-0"
         style={{
@@ -208,9 +203,9 @@ function AmbientBackground() {
         }}
       />
 
-      {/* Animated diagonal lines */}
-      <motion.div
-        className="absolute inset-0"
+      {/* Static diagonal lines - CSS animation instead of Framer Motion */}
+      <div
+        className="absolute inset-0 diagonal-lines"
         style={{
           backgroundImage: `repeating-linear-gradient(
             -45deg,
@@ -220,34 +215,9 @@ function AmbientBackground() {
             rgba(255, 255, 255, 0.008) 81px
           )`,
         }}
-        animate={{
-          backgroundPosition: ['0px 0px', '160px 160px'],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
       />
 
-      {/* Horizontal scan line */}
-      <motion.div
-        className="absolute left-0 right-0 h-px"
-        style={{
-          background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.15) 30%, rgba(0, 212, 255, 0.2) 50%, rgba(139, 92, 246, 0.15) 70%, transparent 100%)',
-        }}
-        animate={{
-          top: ['10%', '90%', '10%'],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-
-      {/* Edge accent lines */}
+      {/* Edge accent lines - static */}
       <div 
         className="absolute left-0 top-[20%] bottom-[20%] w-px"
         style={{
@@ -273,7 +243,7 @@ function AIPromptBadge() {
       className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-accent-primary/30 bg-accent-primary/5 backdrop-blur-sm"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
+      transition={{ duration: 0.3, delay: 0.1 }}
     >
       {/* Pulsing dot */}
       <span className="relative flex h-2 w-2">
@@ -296,10 +266,10 @@ export function HeroSection() {
 
   const handleTitleComplete = useCallback(() => {
     setTitleComplete(true);
-    // Delay subtitle appearance
-    setTimeout(() => setShowSubtitle(true), 400);
-    // Delay CTA appearance
-    setTimeout(() => setShowCTA(true), 1200);
+    // Natural pause before subtitle
+    setTimeout(() => setShowSubtitle(true), 250);
+    // CTA appears after subtitle settles
+    setTimeout(() => setShowCTA(true), 700);
   }, []);
 
   return (

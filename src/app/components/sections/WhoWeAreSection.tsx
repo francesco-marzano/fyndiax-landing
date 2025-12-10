@@ -66,7 +66,7 @@ const features = [
   },
 ];
 
-// Neural network particle system
+// Neural network particle system - optimized (reduced from 25 to 8 particles)
 function NeuralParticles({ 
   color, 
   isHovered 
@@ -74,77 +74,40 @@ function NeuralParticles({
   color: string;
   isHovered: boolean;
 }) {
-  const particleCount = 25;
+  // Reduced particle count for better performance
+  const particleCount = 8;
   const particles = Array.from({ length: particleCount }, (_, i) => ({
     id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 2,
-    duration: Math.random() * 3 + 2,
+    x: 10 + (i * 12) % 80, // More evenly distributed
+    y: 15 + (i * 17) % 70,
+    size: 2 + (i % 2),
+    delay: i * 0.2,
+    duration: 4 + (i % 2),
   }));
 
-  // Create connections between nearby particles
-  const connections = [];
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance < 35) {
-        connections.push({
-          id: `${i}-${j}`,
-          x1: particles[i].x,
-          y1: particles[i].y,
-          x2: particles[j].x,
-          y2: particles[j].y,
-          opacity: 1 - distance / 35,
-        });
-      }
-    }
+  // Only show on hover to reduce constant animations
+  if (!isHovered) {
+    return null;
   }
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Neural connections */}
-      <svg className="absolute inset-0 w-full h-full">
-        {connections.map((conn) => (
-          <motion.line
-            key={conn.id}
-            x1={`${conn.x1}%`}
-            y1={`${conn.y1}%`}
-            x2={`${conn.x2}%`}
-            y2={`${conn.y2}%`}
-            stroke={color}
-            strokeWidth="0.5"
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: isHovered ? conn.opacity * 0.6 : conn.opacity * 0.15,
-              strokeWidth: isHovered ? 1 : 0.5,
-            }}
-            transition={{ duration: 0.5 }}
-          />
-        ))}
-      </svg>
-
-      {/* Particles */}
+      {/* Particles only - removed SVG connections for performance */}
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute rounded-full"
+          className="absolute rounded-full will-change-transform"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
             width: particle.size,
             height: particle.size,
             backgroundColor: color,
-            boxShadow: `0 0 ${particle.size * 4}px ${color}`,
           }}
+          initial={{ opacity: 0, scale: 0.5 }}
           animate={{
-            scale: isHovered ? [1, 1.5, 1] : [0.5, 1, 0.5],
-            opacity: isHovered ? [0.5, 1, 0.5] : [0.2, 0.4, 0.2],
-            x: [(Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20],
-            y: [(Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20],
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.8, 0.4],
           }}
           transition={{
             duration: particle.duration,
@@ -158,45 +121,7 @@ function NeuralParticles({
   );
 }
 
-// Data stream effect
-function DataStream({ color, isHovered }: { color: string; isHovered: boolean }) {
-  const streams = Array.from({ length: 6 }, (_, i) => ({
-    id: i,
-    x: 15 + (i * 14),
-    delay: i * 0.3,
-  }));
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
-      {streams.map((stream) => (
-        <motion.div
-          key={stream.id}
-          className="absolute w-[2px] h-full"
-          style={{ left: `${stream.x}%` }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0.3 }}
-        >
-          <motion.div
-            className="w-full h-16 rounded-full"
-            style={{
-              background: `linear-gradient(to bottom, transparent, ${color}, transparent)`,
-              boxShadow: `0 0 10px ${color}`,
-            }}
-            animate={{
-              y: ['-100%', '500%'],
-            }}
-            transition={{
-              duration: 2 + Math.random(),
-              repeat: Infinity,
-              delay: stream.delay,
-              ease: 'linear',
-            }}
-          />
-        </motion.div>
-      ))}
-    </div>
-  );
-}
+// Data stream effect - REMOVED for performance (was 6 constantly animated elements)
 
 // Holographic border effect
 function HoloBorder({ color, isHovered }: { color: string; isHovered: boolean }) {
@@ -356,10 +281,9 @@ function FeatureCard({
       <motion.div
         className="h-full perspective-1000"
         animate={{
-          opacity: hasHovered && !isHovered ? 0.6 : 1,
-          filter: hasHovered && !isHovered ? 'blur(1px)' : 'blur(0px)',
+          opacity: hasHovered && !isHovered ? 0.7 : 1,
         }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.3 }}
       >
         <TiltCard
           feature={feature}
@@ -381,11 +305,8 @@ function FeatureCard({
               }}
             />
 
-            {/* Neural network particles */}
+            {/* Neural network particles - only on hover */}
             <NeuralParticles color={feature.accent} isHovered={isHovered} />
-            
-            {/* Data streams */}
-            <DataStream color={feature.accent} isHovered={isHovered} />
 
             {/* Holographic border */}
             <HoloBorder color={feature.accent} isHovered={isHovered} />
@@ -604,7 +525,7 @@ export function WhoWeAreSection() {
 
   return (
     <section id="who-we-are" className="section relative overflow-hidden">
-      {/* Clean elegant background */}
+      {/* Clean elegant background - static for performance */}
       <div className="absolute inset-0">
         {/* Subtle top gradient */}
         <div
@@ -614,8 +535,8 @@ export function WhoWeAreSection() {
           }}
         />
 
-        {/* Animated grid pattern */}
-        <motion.div
+        {/* Static grid pattern */}
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
@@ -628,9 +549,9 @@ export function WhoWeAreSection() {
           }}
         />
 
-        {/* Diagonal lines */}
-        <motion.div
-          className="absolute inset-0"
+        {/* Static diagonal lines - CSS animation for performance */}
+        <div
+          className="absolute inset-0 diagonal-lines"
           style={{
             backgroundImage: `repeating-linear-gradient(
               -45deg,
@@ -639,14 +560,6 @@ export function WhoWeAreSection() {
               rgba(255, 255, 255, 0.006) 100px,
               rgba(255, 255, 255, 0.006) 101px
             )`,
-          }}
-          animate={{
-            backgroundPosition: ['0px 0px', '200px 200px'],
-          }}
-          transition={{
-            duration: 40,
-            repeat: Infinity,
-            ease: 'linear',
           }}
         />
       </div>

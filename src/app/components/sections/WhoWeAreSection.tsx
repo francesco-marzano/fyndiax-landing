@@ -55,7 +55,7 @@ const features = [
     id: 'ventures',
     number: '03',
     icon: Rocket,
-    title: 'Ventures',
+    title: 'Startup',
     subtitle: 'Science-to-Market Pipeline',
     description:
       'We co-create and validate science-backed startups, transforming lab results and field data into products, pilots and successful spin-offs ready for market.',

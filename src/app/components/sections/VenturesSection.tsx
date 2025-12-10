@@ -8,9 +8,9 @@ import { SectionTypewriter } from '../animations/SectionTypewriter';
 
 const ventures = [
   {
-    id: 'cultray',
-    name: 'Cultray',
-    builder: 'Synxay',
+    id: 'cultrai',
+    name: 'Cultrai',
+    builder: 'Synxai',
     category: 'AI & Culture',
     description: 'AI-powered cultural intelligence platform that helps organisations map narratives, cultures and emerging behaviours. Built with researchers and domain experts, it turns complex cultural signals into actionable insights for strategy, media and product design.',
     color: 'synxay',

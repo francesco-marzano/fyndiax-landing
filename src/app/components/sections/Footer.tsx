@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Linkedin, Twitter, ArrowUp } from 'lucide-react';
+import { Linkedin, ArrowUp } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -60,14 +60,6 @@ export function Footer() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Linkedin className="w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="#"
-                className="w-10 h-10 rounded-xl bg-bg-glass border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-primary hover:border-border-medium transition-all"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Twitter className="w-5 h-5" />
               </motion.a>
             </div>
 

@@ -12,11 +12,11 @@ import { SectionTypewriter } from '../animations/SectionTypewriter';
 const builders = [
   {
     id: 'synxay',
-    name: 'Synxay',
+    name: 'Synxai',
     tagline: 'AI Venture Builder',
     subtitle: 'AI-driven discovery and cultural intelligence',
     description:
-      'Synxay is our AI venture builder. It uses AI-driven discovery engines and cultural intelligence platforms to scan emerging patterns, identify real-world problems and generate new data-first ventures. We collaborate with universities, social scientists and corporate innovation teams to transform insights into companies.',
+      'Synxai is our AI venture builder. It uses AI-driven discovery engines and cultural intelligence platforms to scan emerging patterns, identify real-world problems and generate new data-first ventures. We collaborate with universities, social scientists and corporate innovation teams to transform insights into companies.',
     features: [
       { icon: Sparkles, text: 'AI-based scouting of weak signals and emerging behaviours' },
       { icon: Brain, text: 'Science-informed opportunity mapping in culture, media and society' },

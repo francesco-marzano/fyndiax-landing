@@ -726,7 +726,7 @@ function MobileJourneyLayout({ nodes }: { nodes: NodeData[] }) {
         />
       </div>
       
-      {/* Second Level: Synxay & Kirevya - side by side */}
+      {/* Second Level: Synxai & Kirevya - side by side */}
       <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-md px-2">
         <ResponsiveHUDCard node={nodes[1]} delay={0.1} size="compact" />
         <ResponsiveHUDCard node={nodes[2]} delay={0.15} size="compact" />
@@ -755,12 +755,18 @@ function MobileJourneyLayout({ nodes }: { nodes: NodeData[] }) {
         </div>
       </div>
       
-      {/* Third Level: Ventures - 2x2 grid */}
+      {/* Third Level: Ventures - Cultrai left, 3 green right */}
       <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-md px-2">
-        <ResponsiveHUDCard node={nodes[3]} delay={0.2} size="compact" />
-        <ResponsiveHUDCard node={nodes[4]} delay={0.25} size="compact" />
-        <ResponsiveHUDCard node={nodes[5]} delay={0.3} size="compact" />
-        <ResponsiveHUDCard node={nodes[6]} delay={0.35} size="compact" />
+        {/* Left column: Cultrai */}
+        <div className="flex items-start justify-center">
+          <ResponsiveHUDCard node={nodes[3]} delay={0.2} size="compact" />  {/* Cultrai */}
+        </div>
+        {/* Right column: Mavyeda, TransWood, Regena */}
+        <div className="flex flex-col gap-2 sm:gap-3">
+          <ResponsiveHUDCard node={nodes[4]} delay={0.25} size="compact" /> {/* Mavyeda */}
+          <ResponsiveHUDCard node={nodes[6]} delay={0.3} size="compact" />  {/* TransWood */}
+          <ResponsiveHUDCard node={nodes[5]} delay={0.35} size="compact" /> {/* Regena */}
+        </div>
       </div>
       
       {/* Mini rocket animation */}
@@ -825,7 +831,7 @@ function TabletJourneyLayout({ nodes }: { nodes: NodeData[] }) {
         />
       </div>
       
-      {/* Second Level: Synxay & Kirevya */}
+      {/* Second Level: Synxai & Kirevya */}
       <div className="grid grid-cols-2 gap-6 w-full max-w-xl">
         <ResponsiveHUDCard node={nodes[1]} delay={0.1} size="default" />
         <ResponsiveHUDCard node={nodes[2]} delay={0.15} size="default" />
@@ -856,7 +862,7 @@ function TabletJourneyLayout({ nodes }: { nodes: NodeData[] }) {
       
       {/* Third Level: All Ventures - 2x2 grid for better layout */}
       <div className="grid grid-cols-2 gap-4 w-full max-w-xl">
-        {/* AI Venture - Cultray */}
+        {/* AI Venture - Cultrai */}
         <div className="flex justify-end">
           <ResponsiveHUDCard node={nodes[3]} delay={0.2} size="default" />
         </div>
@@ -927,13 +933,13 @@ export function ModelSection() {
   const fyndiaxX = SVG_WIDTH / 2;
   const fyndiaxY = 60;
   
-  // Level 2: Synxay left, Kirevya right - more spread out
+  // Level 2: Synxai left, Kirevya right - more spread out
   const synxayX = 130;
   const synxayY = 210;
   const kirevyaX = SVG_WIDTH - 130;
   const kirevyaY = 210;
   
-  // Level 3: Cultray under Synxay, 3 green nodes centered under Kirevya
+  // Level 3: Cultrai under Synxai, 3 green nodes centered under Kirevya
   const cultrayX = synxayX;
   const cultrayY = 400;
   
@@ -958,7 +964,7 @@ export function ModelSection() {
     },
     { 
       id: 'synxay', 
-      name: 'Synxay', 
+      name: 'Synxai', 
       subtitle: 'AI Builder', 
       color: '#A855F7',
       colorClass: 'hud-card-synxay',
@@ -973,8 +979,8 @@ export function ModelSection() {
       position: { x: kirevyaX, y: kirevyaY }
     },
     { 
-      id: 'cultray', 
-      name: 'Cultray', 
+      id: 'cultrai', 
+      name: 'Cultrai', 
       subtitle: 'Cultural AI', 
       color: '#A855F7',
       colorClass: 'hud-card-synxay',
@@ -1190,7 +1196,7 @@ export function ModelSection() {
         if (completed === 2) resolve();
       };
 
-      // Rocket to Synxay (purple)
+      // Rocket to Synxai (purple)
       animateRocketOnPath('rocket-synxay', paths[0], 800, checkComplete);
       // Rocket to Kirevya (green)
       animateRocketOnPath('rocket-kirevya', paths[2], 800, checkComplete);
@@ -1202,13 +1208,13 @@ export function ModelSection() {
     // Phase 2: Launch child rockets simultaneously
     await new Promise<void>(resolve => {
       let completed = 0;
-      const total = 4; // Cultray + 3 green children
+      const total = 4; // Cultrai + 3 green children
       const checkComplete = () => {
         completed++;
         if (completed === total) resolve();
       };
 
-      // From Synxay to Cultray
+      // From Synxai to Cultrai
       animateRocketOnPath('rocket-cultray', paths[1], 500, checkComplete);
       
       // From Kirevya to all three children

@@ -34,7 +34,7 @@ export function SectionTypewriter({
           return (
             <motion.span
               key={wordIndex}
-              className={`inline-block mr-[0.3em] ${highlighted ? 'gradient-text' : ''}`}
+              className={`inline-block whitespace-nowrap mr-[0.3em] ${highlighted ? 'gradient-text' : ''}`}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { 
                 opacity: 1, 

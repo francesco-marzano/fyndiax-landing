@@ -78,34 +78,56 @@ function AITypewriter({
   const highlightStart = text.indexOf('thematic innovation');
   const highlightEnd = highlightStart + 19;
 
+  // Split text into words for proper wrapping
+  const words = text.split(' ');
+  let charIndex = 0;
+
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       <h1 className="relative inline" style={{ textWrap: 'balance' }}>
-        {displayText.split('').map((char, i) => {
-          const isGlitching = glitchChar === i;
-          const isHighlighted = i >= highlightStart && i < highlightEnd;
+        {words.map((word, wordIndex) => {
+          const wordStartIndex = charIndex;
+          const wordChars = word.split('');
+          charIndex += word.length + 1; // +1 for space
           
           return (
-            <motion.span
-              key={i}
-              className={`inline-block ${isHighlighted && !isGlitching ? 'gradient-text' : ''}`}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ 
-                opacity: 1, 
-                y: 0,
-              }}
-              transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
-              style={{
-                color: isGlitching 
-                  ? 'var(--accent-primary)' 
-                  : undefined,
-                textShadow: isHighlighted
-                  ? '0 0 20px rgba(0, 212, 255, 0.4)'
-                  : undefined,
-              }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </motion.span>
+            <span key={wordIndex} className="inline-block whitespace-nowrap">
+              {wordChars.map((char, charInWordIndex) => {
+                const globalCharIndex = wordStartIndex + charInWordIndex;
+                const isVisible = globalCharIndex < displayText.length;
+                const isGlitching = glitchChar === globalCharIndex;
+                const isHighlighted = globalCharIndex >= highlightStart && globalCharIndex < highlightEnd;
+                
+                if (!isVisible) return null;
+                
+                return (
+                  <motion.span
+                    key={charInWordIndex}
+                    className={`inline-block ${isHighlighted && !isGlitching ? 'gradient-text' : ''}`}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                    }}
+                    transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    style={{
+                      color: isGlitching 
+                        ? 'var(--accent-primary)' 
+                        : undefined,
+                      textShadow: isHighlighted
+                        ? '0 0 20px rgba(0, 212, 255, 0.4)'
+                        : undefined,
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                );
+              })}
+              {/* Add space after word (except last word) */}
+              {wordIndex < words.length - 1 && wordStartIndex + word.length < displayText.length && (
+                <span className="inline-block">&nbsp;</span>
+              )}
+            </span>
           );
         })}
         

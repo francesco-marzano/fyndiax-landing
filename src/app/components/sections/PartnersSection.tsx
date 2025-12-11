@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Building2, GraduationCap, Wallet, Zap, ArrowRight } from 'lucide-react';
 import { FadeInUp } from '../animations';
@@ -415,13 +415,13 @@ function HelixStep({
   item, 
   index,
   isActive, 
-  onClick,
+  onHover,
   isLast,
 }: { 
   item: typeof collaborationItems[0]; 
   index: number;
   isActive: boolean;
-  onClick: () => void;
+  onHover: (id: string | null) => void;
   isLast: boolean;
 }) {
   const isEven = index % 2 === 0;
@@ -459,18 +459,17 @@ function HelixStep({
         </motion.div>
       )}
 
-      <motion.button
-        onClick={onClick}
+      <motion.div
+        onMouseEnter={() => onHover(item.id)}
+        onMouseLeave={() => onHover(null)}
         className={`
           relative w-full text-left rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8
-          transition-all duration-500
+          transition-all duration-500 cursor-pointer
           ${isActive 
             ? 'bg-gradient-to-br from-[rgba(139,92,246,0.15)] to-transparent border-accent-primary/40' 
             : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1]'}
           border overflow-hidden group
         `}
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
       >
         {/* Active State Background Effects */}
         {isActive && (
@@ -618,7 +617,7 @@ function HelixStep({
           animate={{ width: isActive ? '100%' : '0%' }}
           transition={{ duration: 0.5 }}
         />
-      </motion.button>
+      </motion.div>
     </motion.div>
   );
 }
@@ -629,21 +628,8 @@ function HelixStep({
 
 export function PartnersSection() {
   const [hoveredPartner, setHoveredPartner] = useState<string | null>(null);
-  const [activeStep, setActiveStep] = useState<string>('mapping');
+  const [activeStep, setActiveStep] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
-
-  // Auto-cycle through steps for ambient animation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveStep(current => {
-        const currentIndex = collaborationItems.findIndex(item => item.id === current);
-        const nextIndex = (currentIndex + 1) % collaborationItems.length;
-        return collaborationItems[nextIndex].id;
-      });
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section 
@@ -783,7 +769,7 @@ export function PartnersSection() {
                   item={item}
                   index={index}
                   isActive={activeStep === item.id}
-                  onClick={() => setActiveStep(item.id)}
+                  onHover={setActiveStep}
                   isLast={index === collaborationItems.length - 1}
                 />
               ))}
@@ -794,15 +780,15 @@ export function PartnersSection() {
               <div className="mt-12 flex justify-center">
                 <div className="flex items-center gap-3">
                   {collaborationItems.map((item) => (
-                    <motion.button
+                    <motion.div
                       key={item.id}
-                      onClick={() => setActiveStep(item.id)}
+                      onMouseEnter={() => setActiveStep(item.id)}
+                      onMouseLeave={() => setActiveStep(null)}
                       className={`
-                        relative w-12 h-1.5 rounded-full transition-all duration-300 overflow-hidden
+                        relative w-12 h-1.5 rounded-full transition-all duration-300 overflow-hidden cursor-pointer
                         ${activeStep === item.id ? 'bg-accent-primary/30' : 'bg-white/10'}
                       `}
                       whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
                     >
                       {activeStep === item.id && (
                         <motion.div
@@ -811,7 +797,7 @@ export function PartnersSection() {
                           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                         />
                       )}
-                    </motion.button>
+                    </motion.div>
                   ))}
                 </div>
               </div>

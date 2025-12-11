@@ -13,7 +13,7 @@ const team = [
     role: 'Co-Founder & Partner',
     bio: 'Entrepreneur and innovator with solid experience in building and growing tech and industrial companies. Founder of SBS S.p.a. and co-owner of Nuova Fina Group S.p.a.',
     image: '/images/Giorgio-Barbaglia.jpeg',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/giorgiobarbaglia/',
     tag: 'Industrial Vision',
   },
   {
@@ -21,7 +21,7 @@ const team = [
     role: 'Co-Founder & Innovation Manager',
     bio: 'Tech business advisor and innovation designer, focused on AI and exponential technologies. Founder of LiftyUp. Experience in corporate, venture building and startup mentorship.',
     image: '/images/Riccardo-D_Iglio.jpeg',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/riccardodiglio/',
     tag: 'Tech & AI',
   },
   {
@@ -29,7 +29,7 @@ const team = [
     role: 'Scientific Advisor',
     bio: 'Agronomist with over 20 years of experience as an entrepreneur and researcher. Recognized expert in sustainable agronomy and precision food.',
     image: '/images/Luca Bertolino.jpeg',
-    linkedin: '#',
+    linkedin: '',
     tag: 'Scientific Advisory',
   },
 ];
@@ -240,22 +240,26 @@ function FounderCard({ member, index }: { member: typeof team[0]; index: number 
               {member.bio}
             </p>
 
-            {/* LinkedIn Button */}
-            <motion.a
-              href={member.linkedin}
-              className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300"
-              style={{
-                background: 'var(--accent-gradient)',
-                color: 'white',
-              }}
-              whileHover={{ scale: isTouch ? 1 : 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span>Connect</span>
-              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </motion.a>
+            {/* LinkedIn Button - solo se ha un profilo LinkedIn */}
+            {member.linkedin && (
+              <motion.a
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300"
+                style={{
+                  background: 'var(--accent-gradient)',
+                  color: 'white',
+                }}
+                whileHover={{ scale: isTouch ? 1 : 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span>Connect</span>
+                <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </motion.a>
+            )}
           </motion.div>
         </div>
 

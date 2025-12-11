@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { Compass, Layers, Rocket } from 'lucide-react';
 import { FadeInUp, StaggerChildren, StaggerItem } from '../animations';

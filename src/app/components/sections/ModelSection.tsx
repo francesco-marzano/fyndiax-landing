@@ -187,22 +187,6 @@ function HUDCard({
         
         {/* Content */}
         <div className="relative z-10 text-center">
-          {/* Status indicator */}
-          <div className="flex items-center justify-center gap-2.5 mb-2">
-            <div 
-              className="hud-status-dot"
-              style={{ 
-                width: node.isMain ? '10px' : '8px',
-                height: node.isMain ? '10px' : '8px',
-              }}
-            />
-            <span 
-              className={`hud-status-label font-mono uppercase tracking-[0.2em] ${node.isMain ? 'text-[11px]' : 'text-[10px]'}`}
-            >
-              {isActivated ? '● ONLINE' : '○ STANDBY'}
-            </span>
-          </div>
-          
           {/* Name */}
           <div
             className={`hud-card-title font-bold tracking-wide ${node.isMain ? 'text-2xl' : 'text-base'}`}
@@ -217,34 +201,34 @@ function HUDCard({
             {node.subtitle}
           </div>
           
-          {/* Power level indicator (active only) */}
+          {/* Loading dots (active only) */}
           <AnimatePresence>
             {isActivated && (
               <motion.div
-                className="mt-3 flex items-center justify-center gap-1"
+                className="mt-3 flex items-center justify-center gap-1.5"
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
               >
-                {[0, 1, 2, 3, 4].map((i) => (
+                {[0, 1, 2].map((i) => (
                   <motion.div
                     key={i}
-                    className="rounded-sm"
+                    className="rounded-full"
                     style={{
-                      width: node.isMain ? '6px' : '4px',
-                      height: node.isMain ? '12px' : '8px',
+                      width: node.isMain ? '6px' : '5px',
+                      height: node.isMain ? '6px' : '5px',
                       background: node.color,
                       boxShadow: `0 0 6px ${node.color}`,
                     }}
                     animate={{
-                      opacity: [0.4, 1, 0.4],
-                      scaleY: [0.6, 1, 0.6],
+                      opacity: [0.3, 1, 0.3],
+                      scale: [0.8, 1, 0.8],
                     }}
                     transition={{
-                      duration: 1,
+                      duration: 1.2,
                       repeat: Infinity,
-                      delay: i * 0.15,
+                      delay: i * 0.2,
                       ease: 'easeInOut',
                     }}
                   />
@@ -614,21 +598,6 @@ function ResponsiveHUDCard({
         <div className="hud-data-stream" />
         
         <div className="relative z-10 text-center">
-          <div className="flex items-center justify-center gap-1.5 mb-1">
-            <div 
-              className="hud-status-dot"
-              style={{ 
-                width: styles.dotSize,
-                height: styles.dotSize,
-              }}
-            />
-            <span 
-              className={`hud-status-label font-mono uppercase tracking-[0.12em] ${styles.statusSize}`}
-            >
-              {isActivated ? '● ONLINE' : '○ STANDBY'}
-            </span>
-          </div>
-          
           <div
             className={`hud-card-title font-bold tracking-wide ${styles.titleSize} leading-tight`}
           >
@@ -641,32 +610,32 @@ function ResponsiveHUDCard({
             {node.subtitle}
           </div>
           
-          {/* Power bars */}
+          {/* Loading dots */}
           {isActivated && (
             <motion.div
-              className="mt-2 flex items-center justify-center gap-0.5"
+              className="mt-2 flex items-center justify-center gap-1"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              {[0, 1, 2, 3].map((i) => (
+              {[0, 1, 2].map((i) => (
                 <motion.div
                   key={i}
-                  className="rounded-sm"
+                  className="rounded-full"
                   style={{
                     width: styles.barWidth,
-                    height: styles.barHeight,
+                    height: styles.barWidth,
                     background: node.color,
                     boxShadow: `0 0 3px ${node.color}`,
                   }}
                   animate={{
-                    opacity: [0.4, 1, 0.4],
-                    scaleY: [0.6, 1, 0.6],
+                    opacity: [0.3, 1, 0.3],
+                    scale: [0.8, 1, 0.8],
                   }}
                   transition={{
-                    duration: 1,
+                    duration: 1.2,
                     repeat: Infinity,
-                    delay: i * 0.12,
+                    delay: i * 0.2,
                     ease: 'easeInOut',
                   }}
                 />
@@ -1022,9 +991,9 @@ export function ModelSection() {
       path: `M ${fyndiaxX} ${fyndiaxY + CARD_HEIGHT_MAIN/2 + 5} Q ${(fyndiaxX + synxayX)/2} ${(fyndiaxY + synxayY)/2 + 20} ${synxayX} ${synxayY - CARD_HEIGHT/2 - 5}`,
     },
     {
-      id: 'synxay-cultray',
+      id: 'synxay-cultrai',
       from: 'synxay',
-      to: 'cultray',
+      to: 'cultrai',
       color: '#A855F7',
       path: `M ${synxayX} ${synxayY + CARD_HEIGHT/2 + 5} L ${cultrayX} ${cultrayY - CARD_HEIGHT/2 - 5}`,
     },

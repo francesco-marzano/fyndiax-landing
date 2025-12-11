@@ -69,7 +69,7 @@ function AITypewriter({
     };
 
     // Start typing after brief pause (natural feel)
-    timeoutId = setTimeout(typeNextChar, 400);
+    timeoutId = setTimeout(typeNextChar, 100);
 
     return () => clearTimeout(timeoutId);
   }, [text, onComplete]);

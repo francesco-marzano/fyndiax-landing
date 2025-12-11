@@ -28,6 +28,7 @@ export function ContactSection() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -43,14 +44,39 @@ export function ContactSection() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    console.log('Form:', { ...data, iAm: selectedIAm, interests: selectedInterests });
-    await new Promise((r) => setTimeout(r, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    reset();
-    setSelectedIAm([]);
-    setSelectedInterests([]);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...data,
+          iAm: selectedIAm,
+          interests: selectedInterests,
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        reset();
+        setSelectedIAm([]);
+        setSelectedInterests([]);
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        const errorData = await response.json();
+        setSubmitError(errorData.error || 'Something went wrong. Please try again.');
+        setTimeout(() => setSubmitError(null), 5000);
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitError('Network error. Please check your connection and try again.');
+      setTimeout(() => setSubmitError(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -275,6 +301,17 @@ export function ContactSection() {
                       </span>
                     )}
                   </Button>
+
+                  {/* Error message */}
+                  {submitError && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-400 text-sm text-center mt-4"
+                    >
+                      {submitError}
+                    </motion.p>
+                  )}
                 </form>
               )}
             </div>

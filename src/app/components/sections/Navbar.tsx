@@ -103,13 +103,13 @@ export function Navbar() {
                 Talk to us
               </Button>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Button - Larger touch target */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="md:hidden p-2 text-white/90 hover:text-white transition-colors rounded-full hover:bg-white/10 ml-1"
+                className="md:hidden p-2.5 sm:p-2 text-white/90 hover:text-white transition-colors rounded-full hover:bg-white/10 ml-1 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Apri menu"
               >
-                <Menu size={20} />
+                <Menu size={22} className="sm:w-5 sm:h-5" />
               </button>
             </nav>
           </motion.header>
@@ -126,10 +126,10 @@ export function Navbar() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center"
           >
-            {/* Close button */}
+            {/* Close button - Larger touch target (min 44x44px) */}
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute top-4 right-4 p-3 text-white/70 hover:text-white transition-colors rounded-full hover:bg-white/10"
+              className="absolute top-4 right-4 p-3 text-white/70 hover:text-white transition-colors rounded-full hover:bg-white/10 min-w-[48px] min-h-[48px] flex items-center justify-center"
               aria-label="Chiudi menu"
             >
               <X size={24} />
@@ -150,8 +150,8 @@ export function Navbar() {
               FYNDIAX
             </motion.a>
 
-            {/* Nav links */}
-            <div className="flex flex-col items-center gap-2">
+            {/* Nav links - Touch-friendly spacing */}
+            <div className="flex flex-col items-center gap-1 sm:gap-2 w-full max-w-xs">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
@@ -163,7 +163,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.4 }}
-                  className="text-2xl font-medium text-white/70 hover:text-white transition-colors py-3 px-6 rounded-xl hover:bg-white/5"
+                  className="text-xl sm:text-2xl font-medium text-white/70 hover:text-white active:text-white transition-colors py-4 px-8 rounded-xl hover:bg-white/5 active:bg-white/10 w-full text-center min-h-[52px] flex items-center justify-center"
                 >
                   {link.label}
                 </motion.a>

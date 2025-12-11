@@ -227,7 +227,7 @@ export function VenturesSection() {
 
                         {/* Name - Responsive Typography */}
                         <motion.h3 
-                          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight flex-1 leading-[0.95]"
+                          className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold tracking-tight flex-1 leading-tight sm:leading-[0.95]"
                           animate={{ 
                             color: isHovered || isActive ? '#FFFFFF' : 'var(--text-secondary)',
                             x: isHovered ? 4 : 0,

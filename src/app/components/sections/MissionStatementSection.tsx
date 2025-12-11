@@ -10,7 +10,7 @@ export function MissionStatementSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden"
     >
       {/* Subtle background glow */}
       <div 
@@ -20,7 +20,7 @@ export function MissionStatementSection() {
         }}
       />
 
-      <div className="container relative z-10 max-w-4xl mx-auto px-6">
+      <div className="container relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
         <motion.div
           className="relative"
           initial={{ opacity: 0, y: 40 }}
@@ -47,7 +47,7 @@ export function MissionStatementSection() {
             
             {/* Card content */}
             <div 
-              className="relative rounded-3xl p-10 md:p-14"
+              className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-14"
               style={{
                 background: 'linear-gradient(135deg, rgba(12, 12, 18, 0.98) 0%, rgba(18, 18, 26, 0.95) 100%)',
                 backdropFilter: 'blur(20px)',
@@ -74,7 +74,7 @@ export function MissionStatementSection() {
 
               {/* Main text */}
               <motion.p
-                className="text-lg md:text-xl lg:text-[1.4rem] text-text-secondary leading-relaxed max-w-3xl"
+                className="text-base sm:text-lg md:text-xl lg:text-[1.4rem] text-text-secondary leading-relaxed max-w-3xl"
                 initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.3, duration: 0.6 }}
@@ -91,7 +91,7 @@ export function MissionStatementSection() {
 
               {/* Secondary line */}
               <motion.p
-                className="text-base md:text-lg text-text-tertiary max-w-2xl leading-relaxed"
+                className="text-sm sm:text-base md:text-lg text-text-tertiary max-w-2xl leading-relaxed"
                 initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.5, duration: 0.6 }}

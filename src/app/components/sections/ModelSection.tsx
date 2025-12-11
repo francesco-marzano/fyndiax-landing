@@ -1322,21 +1322,21 @@ export function ModelSection() {
 
       <div className="container relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 max-w-4xl mx-auto">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16 max-w-4xl mx-auto px-4 sm:px-6">
           <FadeInUp>
-            <span className="eyebrow mb-6 inline-flex">Our Model</span>
+            <span className="eyebrow mb-4 sm:mb-6 inline-flex">Our Model</span>
           </FadeInUp>
 
           <FadeInUp delay={0.1}>
             <SectionTypewriter 
               text="From architecture to ventures"
               highlightWords={['ventures']}
-              className="mb-6"
+              className="mb-4 sm:mb-6"
             />
           </FadeInUp>
 
           <FadeInUp delay={0.2}>
-            <p className="text-lg text-text-tertiary leading-relaxed">
+            <p className="text-base sm:text-lg text-text-tertiary leading-relaxed">
               Fyndiax sits at the top of a lean, modular architecture that connects a central 
               system architect with thematic venture builders and their ventures. At every level, 
               we integrate scientific partners and corporate stakeholders to ensure that each 

@@ -322,7 +322,7 @@ function FeatureCard({
             {/* Content */}
             <div className="relative z-10 h-full p-5 sm:p-6 md:p-8 lg:p-10 flex flex-col">
               {/* Header */}
-              <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center justify-between mb-4 sm:mb-6 md:mb-8">
                 {/* Number with pulse effect */}
                 <motion.div
                   className="relative"
@@ -383,7 +383,7 @@ function FeatureCard({
                   </motion.div>
 
                   <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center"
+                    className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center"
                     style={{
                       background: `linear-gradient(135deg, ${feature.accent}20, ${feature.accent}05)`,
                       border: `1px solid ${feature.accent}30`,
@@ -391,7 +391,7 @@ function FeatureCard({
                     }}
                   >
                     <Icon
-                      className="w-7 h-7"
+                      className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
                       style={{ color: feature.accent }}
                       strokeWidth={1.5}
                     />

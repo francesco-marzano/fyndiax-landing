@@ -231,7 +231,8 @@ function DesktopTimelineItem({ item, index }: { item: typeof timelineItems[0]; i
 
 export function WhyNowSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isMobile = useMediaQuery('(max-width: 767px)');
+  // Show mobile layout on mobile AND smaller tablets (< 1024px)
+  const isMobile = useMediaQuery('(max-width: 1023px)');
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,

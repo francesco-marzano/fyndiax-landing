@@ -462,7 +462,7 @@ function HelixStep({
       <motion.button
         onClick={onClick}
         className={`
-          relative w-full text-left rounded-2xl p-6 lg:p-8
+          relative w-full text-left rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8
           transition-all duration-500
           ${isActive 
             ? 'bg-gradient-to-br from-[rgba(139,92,246,0.15)] to-transparent border-accent-primary/40' 
@@ -498,12 +498,12 @@ function HelixStep({
           </>
         )}
 
-        <div className="relative z-10 flex items-start gap-6">
+        <div className="relative z-10 flex items-start gap-3 sm:gap-4 md:gap-6">
           {/* Number Badge */}
           <motion.div
             className={`
-              relative flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center
-              font-mono text-lg font-bold transition-all duration-300
+              relative flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl flex items-center justify-center
+              font-mono text-base sm:text-lg font-bold transition-all duration-300
               ${isActive 
                 ? 'bg-accent-primary/20 text-accent-primary border-accent-primary/50' 
                 : 'bg-white/[0.05] text-text-muted border-white/[0.1]'}
@@ -524,15 +524,15 @@ function HelixStep({
               />
             )}
             
-            <span className="text-2xl">{item.icon}</span>
+            <span className="text-lg sm:text-xl md:text-2xl">{item.icon}</span>
           </motion.div>
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
               <span 
                 className={`
-                  font-mono text-xs tracking-wider uppercase transition-colors duration-300
+                  font-mono text-[10px] sm:text-xs tracking-wider uppercase transition-colors duration-300
                   ${isActive ? 'text-accent-primary' : 'text-text-muted'}
                 `}
               >
@@ -555,7 +555,7 @@ function HelixStep({
 
             <h4 
               className={`
-                text-lg lg:text-xl font-semibold mb-2 transition-colors duration-300
+                text-base sm:text-lg lg:text-xl font-semibold mb-1 sm:mb-2 transition-colors duration-300
                 ${isActive ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'}
               `}
             >
@@ -591,7 +591,7 @@ function HelixStep({
           {/* Active Indicator Arrow */}
           <motion.div
             className={`
-              flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center
+              flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center
               transition-all duration-300
               ${isActive 
                 ? 'bg-accent-primary/20 rotate-90' 
@@ -600,7 +600,7 @@ function HelixStep({
           >
             <Zap 
               className={`
-                w-5 h-5 transition-colors duration-300
+                w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300
                 ${isActive ? 'text-accent-primary' : 'text-text-muted'}
               `}
               strokeWidth={1.5}

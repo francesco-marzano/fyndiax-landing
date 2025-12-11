@@ -278,7 +278,7 @@ function TabletBuilderCard({
         }}
       />
       
-      <div className="relative z-10 p-6 h-full flex flex-col">
+      <div className="relative z-10 p-5 md:p-6 h-full flex flex-col">
         {/* Tagline */}
         <span 
           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase mb-4 self-start"
@@ -403,7 +403,7 @@ function DesktopBuildersInteractive() {
   return (
     <motion.div
       ref={containerRef}
-      className="relative h-[70vh] min-h-[600px] flex cursor-none"
+      className="relative h-[65vh] min-h-[550px] lg:h-[70vh] lg:min-h-[600px] flex cursor-none"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0 }}

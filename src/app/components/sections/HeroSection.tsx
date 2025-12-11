@@ -304,18 +304,19 @@ export function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 container flex flex-col items-center justify-center text-center max-w-5xl mx-auto px-6">
+      <div className="relative z-10 container flex flex-col items-center justify-center text-center max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
         
         {/* AI Status Badge */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <span className="eyebrow">
-              <Sparkles className="w-4 h-4" />
-              Vertical Venture Architect · Italy — UK
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Vertical Venture Architect · Italy — UK</span>
+              <span className="sm:hidden">Venture Architect · IT — UK</span>
             </span>
           </motion.div>
         </div>
@@ -324,7 +325,7 @@ export function HeroSection() {
         <AnimatePresence>
           {!titleComplete && (
             <motion.div 
-              className="mb-6"
+              className="mb-4 sm:mb-6"
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
             >
@@ -334,7 +335,7 @@ export function HeroSection() {
         </AnimatePresence>
 
         {/* Main AI-generated title */}
-        <div className="mb-10 max-w-4xl">
+        <div className="mb-6 sm:mb-8 md:mb-10 max-w-4xl">
           <AITypewriter
             text="Building the future of thematic innovation"
             onComplete={handleTitleComplete}
@@ -345,7 +346,7 @@ export function HeroSection() {
         {/* AI Response - Subheadline */}
         <AIResponse show={showSubtitle}>
           <motion.p
-            className="text-xl md:text-2xl lg:text-[1.65rem] text-text-primary max-w-3xl mx-auto mb-10 leading-relaxed font-medium"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-[1.65rem] text-text-primary max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 leading-relaxed font-medium px-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -404,23 +405,23 @@ export function HeroSection() {
         </AnimatePresence>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - hidden on very small screens */}
       <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        className="absolute bottom-6 sm:bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3 hidden xs:flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: showCTA ? 1 : 0 }}
         transition={{ delay: 0.5, duration: 0.8 }}
       >
-        <span className="text-sm text-text-muted font-medium tracking-wider uppercase">
+        <span className="text-xs sm:text-sm text-text-muted font-medium tracking-wider uppercase">
           Discover
         </span>
         <motion.div
-          className="w-10 h-10 rounded-full border border-border-medium flex items-center justify-center backdrop-blur-sm"
+          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-border-medium flex items-center justify-center backdrop-blur-sm"
           style={{
             background: 'rgba(139, 92, 246, 0.08)',
           }}
           animate={{
-            y: [0, 8, 0],
+            y: [0, 6, 0],
             borderColor: [
               'rgba(255, 255, 255, 0.15)',
               'rgba(139, 92, 246, 0.5)',
@@ -429,7 +430,7 @@ export function HeroSection() {
           }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <ArrowDown className="w-4 h-4 text-text-muted" />
+          <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-text-muted" />
         </motion.div>
       </motion.div>
 

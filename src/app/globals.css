@@ -80,12 +80,34 @@
   --glass-shadow: 0 0 0 1px rgba(255,255,255,0.05) inset, 0 8px 32px rgba(0,0,0,0.4);
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
+/* Tablet adjustments (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
   :root {
-    --container-padding: 24px;
-    --section-padding: 100px;
-    --card-gap: 20px;
+    --container-padding: 40px;
+    --section-padding: 120px;
+    --card-gap: 24px;
+  }
+}
+
+/* Mobile adjustments (< 768px) */
+@media (max-width: 767px) {
+  :root {
+    --container-padding: 20px;
+    --section-padding: 80px;
+    --card-gap: 16px;
+  }
+}
+
+/* Small mobile adjustments (< 640px) */
+@media (max-width: 639px) {
+  :root {
+    --container-padding: 16px;
+    --section-padding: 64px;
+    --card-gap: 12px;
+  }
+  
+  body {
+    font-size: 16px;
   }
 }
 
@@ -183,18 +205,38 @@
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-family: var(--font-mono), monospace;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     line-height: 1;
     text-transform: uppercase;
     color: var(--accent-primary);
-    padding: 8px 16px;
+    padding: 6px 12px;
     background: rgba(129, 140, 248, 0.1);
     border: 1px solid rgba(129, 140, 248, 0.2);
     border-radius: var(--radius-full);
+  }
+  
+  /* Eyebrow - Tablet */
+  @media (min-width: 768px) {
+    .eyebrow {
+      gap: 7px;
+      font-size: 12px;
+      letter-spacing: 0.11em;
+      padding: 7px 14px;
+    }
+  }
+  
+  /* Eyebrow - Desktop */
+  @media (min-width: 1024px) {
+    .eyebrow {
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      padding: 8px 16px;
+    }
   }
 
   .eyebrow::before {
@@ -496,15 +538,33 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--accent-primary);
     background: rgba(129, 140, 248, 0.1);
     border: 1px solid rgba(129, 140, 248, 0.3);
     border-radius: var(--radius-md);
+  }
+  
+  /* Number badge - Tablet */
+  @media (min-width: 768px) {
+    .number-badge {
+      width: 36px;
+      height: 36px;
+      font-size: 13px;
+    }
+  }
+  
+  /* Number badge - Desktop */
+  @media (min-width: 1024px) {
+    .number-badge {
+      width: 40px;
+      height: 40px;
+      font-size: 14px;
+    }
   }
 }
 
@@ -673,15 +733,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 20px 48px;
+  gap: 8px;
+  padding: 14px 28px;
   background: linear-gradient(135deg, #0C0C12 0%, #12121A 100%);
   border-radius: 17px;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   color: white;
   overflow: hidden;
   transition: all 0.3s ease;
+}
+
+/* AI Button - Tablet */
+@media (min-width: 768px) {
+  .ai-button-inner {
+    gap: 10px;
+    padding: 16px 36px;
+    font-size: 1.125rem;
+  }
+}
+
+/* AI Button - Desktop */
+@media (min-width: 1024px) {
+  .ai-button-inner {
+    gap: 12px;
+    padding: 20px 48px;
+    font-size: 1.25rem;
+  }
 }
 
 .ai-button-inner::before {
@@ -1334,8 +1412,25 @@
   }
 }
 
+/* Tablet optimization - Reduce complexity slightly */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .parallax-orb {
+    filter: blur(50px) !important;
+    opacity: 0.8;
+  }
+  
+  .parallax-mesh {
+    filter: blur(35px);
+  }
+  
+  .glass-panel {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+}
+
 /* Mobile optimization - Reduce complexity */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .parallax-orb {
     filter: blur(60px) !important;
     opacity: 0.7;
@@ -1347,5 +1442,26 @@
   
   .parallax-mesh {
     filter: blur(30px);
+  }
+  
+  .glass-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .glass-panel:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Small mobile - Further reduce complexity */
+@media (max-width: 639px) {
+  .glass-panel {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .glass-panel:hover {
+    transform: none;
   }
 }

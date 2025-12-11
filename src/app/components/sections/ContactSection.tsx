@@ -69,24 +69,24 @@ export function ContactSection() {
         }}
       />
 
-      <div className="container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+      <div className="container relative z-10 px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-16 xl:gap-24">
           {/* Left: CTA */}
           <div>
             <FadeInUp>
-              <span className="eyebrow mb-6 inline-flex">Get in Touch</span>
+              <span className="eyebrow mb-4 sm:mb-6 inline-flex">Get in Touch</span>
             </FadeInUp>
             
             <FadeInUp delay={0.1}>
               <SectionTypewriter 
                 text="Let's turn real problems into ventures"
                 highlightWords={['ventures']}
-                className="mb-8"
+                className="mb-6 sm:mb-8"
               />
             </FadeInUp>
             
             <FadeInUp delay={0.2}>
-              <p className="text-xl text-text-secondary leading-relaxed mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-text-secondary leading-relaxed mb-6 sm:mb-8">
                 If you're a university, research centre, corporate or investor exploring 
                 AI, food & agritech, biomaterials or circular manufacturing, we'd love 
                 to discuss co-building science-backed ventures together.
@@ -108,7 +108,7 @@ export function ContactSection() {
 
           {/* Right: Form */}
           <FadeInUp delay={0.2}>
-            <div className="glass-panel p-8 md:p-10">
+            <div className="glass-panel p-5 sm:p-6 md:p-8 lg:p-10">
               {isSubmitted ? (
                 <motion.div
                   className="text-center py-12"
@@ -182,14 +182,14 @@ export function ContactSection() {
 
                   {/* I am */}
                   <div>
-                    <label className="block text-sm text-text-muted mb-3">I am</label>
-                    <div className="flex flex-wrap gap-2">
+                    <label className="block text-sm text-text-muted mb-2 sm:mb-3">I am</label>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {iAmOptions.map((option) => (
                         <motion.button
                           key={option}
                           type="button"
                           onClick={() => toggleChip(option, selectedIAm, setSelectedIAm)}
-                          className="px-4 py-2 rounded-full text-sm font-medium transition-all"
+                          className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all"
                           style={{
                             background: selectedIAm.includes(option)
                               ? 'var(--accent-gradient)'
@@ -212,14 +212,14 @@ export function ContactSection() {
 
                   {/* Interested in */}
                   <div>
-                    <label className="block text-sm text-text-muted mb-3">Interested in</label>
-                    <div className="flex flex-wrap gap-2">
+                    <label className="block text-sm text-text-muted mb-2 sm:mb-3">Interested in</label>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {interestOptions.map((option) => (
                         <motion.button
                           key={option}
                           type="button"
                           onClick={() => toggleChip(option, selectedInterests, setSelectedInterests)}
-                          className="px-4 py-2 rounded-full text-sm font-medium transition-all"
+                          className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all"
                           style={{
                             background: selectedInterests.includes(option)
                               ? 'var(--accent-gradient)'
